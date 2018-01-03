@@ -67,14 +67,14 @@ void publish_scan(ros::Publisher *pub,  node_info *nodes,  size_t node_count, ro
     scan_msg.intensities.resize(counts);
     for (size_t i = 0; i < counts; i++) {
     	//jason begin
-   //  	if(nodes_array[i+node_start] <= 0.2)
-   //  	{
-			// scan_msg.ranges[i] = 15.;
-   //  	}else
-   //  	{
-   //  		scan_msg.ranges[i] = nodes_array[i+node_start];
-   //  	}
-        scan_msg.ranges[i] = nodes_array[i+node_start];
+        if((i < 230)||(i>490))
+        {
+            scan_msg.ranges[i] = 2.0;
+        }else
+        {
+            scan_msg.ranges[i] = 1.0;
+        }
+    //    scan_msg.ranges[i] = nodes_array[i+node_start];
         //jason end
         scan_msg.intensities[i] = quality_array[i+node_start];
     }
