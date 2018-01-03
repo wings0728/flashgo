@@ -62,18 +62,30 @@ void publish_scan(ros::Publisher *pub,  node_info *nodes,  size_t node_count, ro
     
     int angle_start = 180+angle_min;
     int node_start = node_count*(angle_start/360.0f);
+    //jason begin
+    int node_end = node_count - counts - node_start;
+    //jason end
 
     scan_msg.ranges.resize(counts);
     scan_msg.intensities.resize(counts);
-    for (size_t i = 0; i < counts; i++) {
-    	//jason begin
-    	if(nodes_array[i+node_start] <= 0.2)
-    	{
-			scan_msg.ranges[i] = 10.;
-    	}else
-    	{
-    		scan_msg.ranges[i] = nodes_array[i+node_start];
-    	}
+    //jason begin
+    for (size_t i = 0; i < node_count; i++) {
+    	
+        if((i < node_start)||(i>node_end))
+        {
+            scan_msg.ranges[i] = 0.0;
+        }else
+        {
+            scan_msg.ranges[i] = 1.0;
+            // if(nodes_array[i] <= 0.2)
+            // {
+            //     scan_msg.ranges[i] = 10.;
+            // }else
+            // {
+            //     scan_msg.ranges[i] = nodes_array[i];
+            // }
+        }
+
         // scan_msg.ranges[i] = nodes_array[i+node_start];
         //jason end
         scan_msg.intensities[i] = quality_array[i+node_start];
