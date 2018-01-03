@@ -20,6 +20,8 @@
 #define EACH_ANGLE 0.5
 #define DELAY_SECONDS 26
 #define DEG2RAD(x) ((x)*M_PI/180.)
+#define kAngleMin -65
+#define kAngleMax 65
 
 static bool flag = true;
 
@@ -58,9 +60,9 @@ void publish_scan(ros::Publisher *pub,  node_info *nodes,  size_t node_count, ro
 
     }
 
-    int counts = node_count*((angle_max-angle_min)/360.0f);
+    int counts = node_count*((kAngleMax-kAngleMin)/360.0f);
     
-    int angle_start = 180+angle_min;
+    int angle_start = 180+kAngleMin;
     int node_start = node_count*(angle_start/360.0f);
     //jason begin
     int node_end = node_count - counts - node_start;
@@ -73,7 +75,7 @@ void publish_scan(ros::Publisher *pub,  node_info *nodes,  size_t node_count, ro
     	
         if((i < node_start)||(i>node_end))
         {
-            scan_msg.ranges[i] = 0.0;
+            scan_msg.ranges[i] = 2.0;
         }else
         {
             scan_msg.ranges[i] = 1.0;
