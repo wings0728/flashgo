@@ -67,7 +67,7 @@ void publish_scan(ros::Publisher *pub,  node_info *nodes,  size_t node_count, ro
     scan_msg.intensities.resize(counts);
     for (size_t i = 0; i < counts; i++) {
     	//jason begin
-        if((i < 250)||(i>470))
+        if((i < 245)||(i>475))
         {
             scan_msg.ranges[i] = 0.0;
         }else
